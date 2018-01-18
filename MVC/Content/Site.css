@@ -1,0 +1,366 @@
+﻿body {
+    background-color: #fff;
+    border-top: solid 10px #000;
+    color: #333;
+    font-size: 12px;
+    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* FORM LAYOUT ELEMENTS
+----------------------------------------------------------*/
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 20px 20px 20px 20px;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+
+}
+
+.button-150
+{
+    width: 150px;
+    padding: 2px;
+}
+
+.button-100
+{
+    width: 100px;
+    padding: 2px;
+}
+
+/* TABLE
+----------------------------------------------------------*/
+
+table#gridStyle
+{
+  border: solid 1px #e8eef4;
+  border-collapse: collapse;
+}
+
+table#gridStyle td 
+{
+  padding: 5px; 
+  border: solid 1px #e8eef4;
+}
+
+table#gridStyle th
+{
+  padding: 6px 5px;
+  text-align: left;
+  background-color: #e8eef4; 
+  border: solid 1px #e8eef4; 
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    /*color: #ff0000; */
+    color: #000000;
+    background: url("/Content/Images/Unchecked.gif") no-repeat 0px 0px;
+    padding-left: 16px;
+    font-style: italic;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    color: #ff0000;
+    font-style: italic;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+.display-label, 
+.editor-label {
+    margin: 1em 0 0 0;
+}
+.editor-label-bold {
+    margin: 1em 0 0 0;
+    font-weight: bold;
+}
+
+.display-field,
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+.text-box {
+    width: 30em;
+}
+
+.text-box.multi-line {
+    height: 6.5em;
+}
+
+/*.tri-state {
+    width: 6em;
+}*/
+
+.display-field,
+.editor-field textarea {
+    width: 250px;
+    min-height: 75px;
+}
+
+.display-field,
+.editor-field select {
+    width: 258px;
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-size: 1.2em;
+    color: #444;
+}
+
+.display-field,
+.editor-field input[type="text"] {
+    width: 250px;
+    border: 1px solid #CCC;
+    padding: 2px;
+}
+
+.display-field, 
+.editor-field input[type="password"] {
+    width: 250px;
+    border: 1px solid #CCC;
+    padding: 2px;
+}
+
+.display-field,
+.editor-field input[type="submit"] {
+    width: 150px;
+    font-size: 1.2em;
+    padding: 5px;
+}
+
+/* Styles for jgrid
+-----------------------------------------------------------*/
+#jgrid.outer.width {
+    width: 100%;  
+}
+
+
+/* Styles for site
+-----------------------------------------------------------*/
+html {
+    background-color: #e2e2e2;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #333;
+    outline: none;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-decoration: underline;
+}
+
+    a:link, a:visited,
+    a:active, a:hover {
+        color: #333;
+    }
+
+    a:hover {
+        background-color: #c7d1d6;
+    }
+
+header, footer, hgroup,
+nav, section {
+    display: block;
+}
+
+mark {
+    background-color: #a6dbed;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.clear-fix:after {
+    content: ".";
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+    color: #000;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+h5, h6 {
+    font-size: 1em;
+}
+
+    h5 a:link, h5 a:visited, h5 a:active {
+        padding: 0;
+        text-decoration: none;
+    }
+
+
+/* main layout
+----------------------------------------------------------*/
+.content-wrapper {
+    margin: 0 auto;
+    max-width: 1200px;
+    /*max-width: 960px;*/
+}
+
+#body {
+    background-color: #efeeef;
+    clear: both;
+    padding-bottom: 35px;
+}
+
+    .main-content {
+        background: url("Images/accent.png") no-repeat;
+        padding-left: 10px;
+        padding-top: 30px;
+    }
+
+    .featured + .main-content {
+        background: url("Images/heroAccent.png") no-repeat;
+    }
+
+header .content-wrapper {
+    padding-top: 20px; 
+}
+
+footer {
+    clear: both;
+    background-color: #e2e2e2;
+    font-size: .8em;
+    height: 100px;
+}
+
+
+/* site title
+----------------------------------------------------------*/
+.site-title {
+    color: #c8c8c8;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 2.3em;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.site-title a, .site-title a:hover, .site-title a:active {
+    background: none;
+    color: #c8c8c8;
+    outline: none;
+    text-decoration: none;
+}
+
+/* menu
+----------------------------------------------------------*/
+ul#menu {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 0 0 5px;
+    padding: 0;
+    text-align: right;
+}
+
+    ul#menu li {
+        display: inline;
+        list-style: none;
+        padding-left: 15px;
+    }
+
+        ul#menu li a {
+            background: none;
+            color: #999;
+            text-decoration: none;
+        }
+
+        ul#menu li a:hover {
+            color: #333;
+            text-decoration: none;
+        }
+
+/* other
+----------------------------------------------------------*/
+a.disablelink {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+}
+
+/* foreach/manual grid
+----------------------------------------------------------*/
+.gridviewPagerStyle a {                                                                 
+    font-size: smaller;                                                                 
+    color: #ffffff;                                                                     
+    text-decoration: none;                                                              
+    padding: 2px 10px 2px 10px;                                                         
+    border-top: solid 1px #777777;                                                      
+    border-right: solid 1px #333333;                                                    
+    border-bottom: solid 1px #333333;                                                   
+    border-left: solid 1px #777777;                                                     
+    background-color: White;                                                            
+}                                                                                       
+                                                                                        
+.gridviewPagerStyle span {                                                              
+    font-size: smaller;                                                                 
+    font-weight: bold;                                                                  
+    color: #000000;                                                                     
+    text-decoration: none;                                                              
+    padding: 2px 10px 2px 10px;                                                         
+    border-top: solid 1px #777777;                                                      
+    border-right: solid 1px #333333;                                                    
+    border-bottom: solid 1px #333333;                                                   
+    border-left: solid 1px #777777;                                                     
+    background-color: #EFF3FB;                                                          
+}                                                                                       
+                                                                                        
+.gridviewGridLines td {                                                                 
+    border: 1px solid #E5E5E5;                                                          
+}
+
+.gridviewHighlight {                                                                    
+    background-color: Black;                                                            
+} 

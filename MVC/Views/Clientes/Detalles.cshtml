@@ -1,0 +1,49 @@
+@model MVC.ViewModels.ClientesViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles Cliente</h2>
+<div>
+    <div>
+        <fieldset>
+            <legend></legend>
+            <table>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.ClientesModel.ClienteId):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.ClientesModel.ClienteId)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.ClientesModel.Nombre):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.ClientesModel.Nombre)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.ClientesModel.Apellido):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.ClientesModel.Apellido)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.ClientesModel.Edad):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.ClientesModel.Edad)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.ClientesModel.FechaNacimiento):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.ClientesModel.FechaNacimiento)</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <br />
+
+                        @if (Request.UrlReferrer != null)
+                        {
+                            <a href="@Request.UrlReferrer.ToString()">Return</a>
+                        }
+                        else
+                        {
+                            <a href="/Home/Index">Return</a>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+</div>

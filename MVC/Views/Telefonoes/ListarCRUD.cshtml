@@ -1,0 +1,64 @@
+@{
+    ViewBag.Title = "Lista de Telefonos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section AdditionalCss {
+    @Styles.Render("~/Content/Styles/ui.jqgrid.min.css")
+}
+
+@section AdditionalJavaScript {
+    @Scripts.Render("~/bundles/jqgrid")
+    @Scripts.Render("~/Scripts/jqgrid-listcrudredirect.js")
+
+    <script type="text/javascript">
+        var urlAndMethod = '/Telefonoes/Delete/';
+
+        $(function () {
+            $('#list-grid').jqGrid({
+                url: '/Telefonoes/GridData/',
+                datatype: 'json',
+                mtype: 'GET',
+                colNames: ['Telefono ID','Numero','Principal','Cliente Clienteid', '', ''],
+                colModel: [
+                    { name: 'TelefonoID', index: 'TelefonoID', align: 'right' },
+                    { name: 'Numero', index: 'Numero', align: 'left' },
+                    { name: 'Principal', index: 'Principal', align: 'center', formatter: 'checkbox' },
+                    { name: 'ClienteClienteid', index: 'ClienteClienteid', align: 'right' },
+                    { name: 'editoperation', index: 'editoperation', align: 'center', width: 40, sortable: false },
+                    { name: 'deleteoperation', index: 'deleteoperation', align: 'center', width: 40, sortable: false }
+                ],
+                pager: $('#list-pager'),
+                rowNum: 10,
+                rowList: [5, 10, 20, 50],
+                sortname: 'TelefonoID',
+                sortorder: "asc",
+                viewrecords: true,
+                caption: 'Lista de Telefonos',
+                height: '100%',
+                width: '1200',
+                gridComplete: function () {
+                    var ids = jQuery("#list-grid").jqGrid('getDataIDs');
+                    for (var i = 0; i < ids.length; i++) {
+                        var currentid = ids[i];
+                        editLink = "<a href='/Telefonoes/Actualizar/" + currentid + "'><img src='/Content/Images/Edit.gif' style='border:none;' /></a>";
+                        deleteLink = "<a href='#' onclick=\"deleteItem('" + currentid + "')\"><img src='/Content/Images/Delete.png' style='border:none;' /></a>";
+                        jQuery("#list-grid").jqGrid('setRowData', ids[i], { editoperation: editLink });
+                        jQuery("#list-grid").jqGrid('setRowData', ids[i], { deleteoperation: deleteLink });
+                    }
+                }
+            });
+        });
+    </script> 
+}
+
+<h2>@ViewBag.Title</h2>
+<br /><br />
+<div id="errorConfirmationDialog"></div>
+<div id="errorDialog"></div>
+
+<a href="@Url.Action("Nuevo", "Telefonoes")"><img src="@Url.Content("~/Content/Images/Add.gif")" alt="Add New Telefonoes" style="border: none;" /></a>&nbsp;@Html.ActionLink("Ingresar nuevo", "Nuevo", "Telefonoes")
+<br /><br />
+
+<table id="list-grid"></table>
+<div id="list-pager"></div>

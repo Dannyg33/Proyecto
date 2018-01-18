@@ -1,0 +1,80 @@
+@model MVC.ViewModels.TelefonoesViewModel
+@{
+    ViewBag.Title = "Lista de Telefonos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string clienteClienteidSelectValues = ":";
+
+    foreach (var item in Model.ClientesDropDownListData.OrderBy(c => c.ClienteId))
+    {
+        clienteClienteidSelectValues += ";" + item.ClienteId + ":" + item.ClienteId;
+    }
+}
+
+@section AdditionalCss {
+    @Styles.Render("~/Content/Styles/ui.jqgrid.min.css")
+}
+
+@section AdditionalJavaScript {
+    @Scripts.Render("~/bundles/jqgrid")
+    @Scripts.Render("~/Scripts/jqgrid-listsearch.js")
+    @Scripts.Render("~/Scripts/jquery.searchFilter.min.js")
+
+    <script type="text/javascript">
+        $(function () {
+            var checkBoxSelectValues = ":;True:<input type='checkbox' checked disabled /> True;False:<input type='checkbox' disabled /> False";
+            var clienteClienteidSelectValues = "@clienteClienteidSelectValues";
+
+            $('#list-grid').jqGrid({
+                url: '/Telefonoes/GridDataWithFilters/',
+                datatype: 'json',
+                mtype: 'GET',
+                colNames: ['Telefono ID','Numero','Principal','Cliente Clienteid'],
+                colModel: [
+                    { name: 'TelefonoID', index: 'TelefonoID', align: 'right' },
+                    { name: 'Numero', index: 'Numero', align: 'left', searchoptions: { sopt: ['cn']} },
+                    { name: 'Principal', index: 'Principal', align: 'center', formatter: 'select', stype: 'select', edittype: 'select', editoptions: { value: checkBoxSelectValues } },
+                    { name: 'ClienteClienteid', index: 'ClienteClienteid', align: 'left', formatter: 'select', stype: 'select', edittype: 'select', editoptions: { value: clienteClienteidSelectValues } }
+                ],
+                pager: $('#list-pager'),
+                rowNum: 10,
+                rowList: [5, 10, 20, 50],
+                sortname: 'TelefonoID',
+                sortorder: "asc",
+                viewrecords: true,
+                caption: 'Lista de Telefonos',
+                height: '100%',
+                width: '1200',
+                ignoreCase: true
+            }).jqGrid('navGrid', '#list-pager', { edit: false, add: false, del: false, search: false, refresh: false });
+
+            $('#list-grid').jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, beforeSearch: function () {
+                // verify entered data before searching
+                var postData = $('#list-grid').jqGrid('getGridParam', 'postData');
+                var searchData = $.parseJSON(postData.filters);
+                var isThereValidationErrors = false;
+                var validationErrors = "";
+
+                for (var iRule = 0; iRule < searchData.rules.length; iRule++) {
+                    var enteredValue = searchData.rules[iRule].data;
+
+                    if (searchData.rules[iRule].field == "TelefonoID" && !isNumeric(enteredValue)) {
+                        validationErrors += "  Solo numeros.";
+                        isThereValidationErrors = true;
+                    }
+                }
+
+                if(isThereValidationErrors)
+                    alert($.trim(validationErrors));
+
+                return isThereValidationErrors;
+            }
+            });
+        });
+    </script> 
+}
+
+<h2>@ViewBag.Title</h2>
+<br /><br />
+<table id="list-grid"></table>
+<div id="list-pager"></div>

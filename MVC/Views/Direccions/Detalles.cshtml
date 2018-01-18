@@ -1,0 +1,61 @@
+@model MVC.ViewModels.DireccionsViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalle direccion </h2>
+<div>
+    <div>
+        <fieldset>
+            <legend></legend>
+            <table>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.DireccionsModel.DireccionId):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.DireccionsModel.DireccionId)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.DireccionsModel.Calle1):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.DireccionsModel.Calle1)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.DireccionsModel.Calle2):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.DireccionsModel.Calle2)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.DireccionsModel.NumeroCasa):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.DireccionsModel.NumeroCasa)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.DireccionsModel.Canton):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.DireccionsModel.Canton)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.DireccionsModel.Provincia):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.DireccionsModel.Provincia)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.DireccionsModel.Principal):</td>
+                    <td class="editor-label">@Html.DisplayFor(vm => vm.DireccionsModel.Principal)</td>
+                </tr>
+                <tr>
+                    <td class="editor-label-bold">@Html.LabelFor(vm => vm.DireccionsModel.ClienteClienteid):</td>
+                    <td class="editor-field">@Html.DisplayFor(vm => vm.DireccionsModel.ClienteClienteid)</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <br />
+
+                        @if (Request.UrlReferrer != null)
+                        {
+                            <a href="@Request.UrlReferrer.ToString()">Return</a>
+                        }
+                        else
+                        {
+                            <a href="/Home/Index">Return</a>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+</div>

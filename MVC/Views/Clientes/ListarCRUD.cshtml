@@ -1,0 +1,71 @@
+@{
+    ViewBag.Title = "Lista de Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section AdditionalCss {
+    @Styles.Render("~/Content/Styles/ui.jqgrid.min.css")
+}
+
+@section AdditionalJavaScript {
+    @Scripts.Render("~/bundles/jqgrid")
+    @Scripts.Render("~/Scripts/jqgrid-listcrudredirect.js")
+
+    <script type="text/javascript">
+        var urlAndMethod = '/Clientes/Delete/';
+
+        $(function () {
+            $('#list-grid').jqGrid({
+                url: '/Clientes/GridData/',
+                datatype: 'json',
+                mtype: 'GET',
+                colNames: ['Cliente Id','Nombre','Apellido','Edad','Fecha Nacimiento', '', '',''],
+                colModel: [
+                    { name: 'ClienteId', index: 'ClienteId', align: 'right' },
+                    { name: 'Nombre', index: 'Nombre', align: 'left' },
+                    { name: 'Apellido', index: 'Apellido', align: 'left' },
+                    { name: 'Edad', index: 'Edad', align: 'right', formatter: 'integer' },
+                    { name: 'FechaNacimiento', index: 'FechaNacimiento', align: 'left', sorttype: "date" },
+                    { name: 'editoperation', index: 'editoperation', align: 'center', width: 40, sortable: false },
+                    { name: 'deleteoperation', index: 'deleteoperation', align: 'center', width: 40, sortable: false },
+                    { name: 'detailoperation', index: 'detailoperation', align: 'center', width: 40, sortable: false }
+
+                ],
+                pager: $('#list-pager'),
+                rowNum: 10,
+                rowList: [5, 10, 20, 50],
+                sortname: 'ClienteId',
+                sortorder: "asc",
+                viewrecords: true,
+                caption: 'Lista de Clientes',
+                height: '100%',
+                width: '1200',
+                gridComplete: function () {
+                    var ids = jQuery("#list-grid").jqGrid('getDataIDs');
+                    for (var i = 0; i < ids.length; i++) {
+                        var currentid = ids[i];
+                        editLink = "<a href='/Clientes/Actualizar/" + currentid + "'><img src='/Content/Images/Edit.gif' style='border:none;' /></a>";
+                        deleteLink = "<a href='#' onclick=\"deleteItem('" + currentid + "')\"><img src='/Content/Images/Delete.png' style='border:none;' /></a>";
+                        detailLink = "<a href='/Clientes/Detalles/" + currentid + "'><img src='/Content/Images/View.png' style='border:none;' /></a>";
+
+                        jQuery("#list-grid").jqGrid('setRowData', ids[i], { editoperation: editLink });
+                        jQuery("#list-grid").jqGrid('setRowData', ids[i], { deleteoperation: deleteLink });
+                        jQuery("#list-grid").jqGrid('setRowData', ids[i], { detailoperation: detailLink });
+                     
+                    }
+                }
+            });
+        });
+    </script> 
+}
+
+<h2>@ViewBag.Title</h2>
+<br /><br />
+<div id="errorConfirmationDialog"></div>
+<div id="errorDialog"></div>
+
+<a href="@Url.Action("Nuevo", "Clientes")"><img src="@Url.Content("~/Content/Images/Add.gif")" alt="Add New Clientes" style="border: none;" /></a>&nbsp;@Html.ActionLink("Ingresar", "Nuevo", "Clientes")
+<br /><br />
+
+<table id="list-grid"></table>
+<div id="list-pager"></div>

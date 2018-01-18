@@ -1,0 +1,81 @@
+@model MVC.ViewModels.ClientesViewModel
+@{
+    ViewBag.Title = "Lista de Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section AdditionalCss {
+    @Styles.Render("~/Content/Styles/ui.jqgrid.min.css")
+}
+
+@section AdditionalJavaScript {
+    @Scripts.Render("~/bundles/jqgrid")
+    @Scripts.Render("~/Scripts/jqgrid-listsearch.js")
+    @Scripts.Render("~/Scripts/jquery.searchFilter.min.js")
+
+    <script type="text/javascript">
+        $(function () {
+            var checkBoxSelectValues = ":;True:<input type='checkbox' checked disabled /> True;False:<input type='checkbox' disabled /> False";
+
+            $('#list-grid').jqGrid({
+                url: '/Clientes/GridDataWithFilters/',
+                datatype: 'json',
+                mtype: 'GET',
+                colNames: ['Cliente Id','Nombre','Apellido','Edad','Fecha Nacimiento'],
+                colModel: [
+                    { name: 'ClienteId', index: 'ClienteId', align: 'right' },
+                    { name: 'Nombre', index: 'Nombre', align: 'left', searchoptions: { sopt: ['cn']} },
+                    { name: 'Apellido', index: 'Apellido', align: 'left', searchoptions: { sopt: ['cn']} },
+                    { name: 'Edad', index: 'Edad', align: 'right', formatter: 'integer' },
+                    { name: 'FechaNacimiento', index: 'FechaNacimiento', align: 'left', sorttype: "date" }
+                ],
+                pager: $('#list-pager'),
+                rowNum: 10,
+                rowList: [5, 10, 20, 50],
+                sortname: 'ClienteId',
+                sortorder: "asc",
+                viewrecords: true,
+                caption: 'Lista de Clientes',
+                height: '100%',
+                width: '1200',
+                ignoreCase: true
+            }).jqGrid('navGrid', '#list-pager', { edit: false, add: false, del: false, search: false, refresh: false });
+
+            $('#list-grid').jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, beforeSearch: function () {
+                // verify entered data before searching
+                var postData = $('#list-grid').jqGrid('getGridParam', 'postData');
+                var searchData = $.parseJSON(postData.filters);
+                var isThereValidationErrors = false;
+                var validationErrors = "";
+
+                for (var iRule = 0; iRule < searchData.rules.length; iRule++) {
+                    var enteredValue = searchData.rules[iRule].data;
+
+                    if (searchData.rules[iRule].field == "ClienteId" && !isNumeric(enteredValue)) {
+                        validationErrors += "Solo numeros.";
+                        isThereValidationErrors = true;
+                    }
+                    if (searchData.rules[iRule].field == "Edad" && !isNumeric(enteredValue)) {
+                        validationErrors += "Solo numeros.";
+                        isThereValidationErrors = true;
+                    }
+                    if (searchData.rules[iRule].field == "FechaNacimiento" && !isDate(enteredValue)) {
+                        validationErrors += "Infrese una fecha.";
+                        isThereValidationErrors = true;
+                    }
+                }
+
+                if(isThereValidationErrors)
+                    alert($.trim(validationErrors));
+
+                return isThereValidationErrors;
+            }
+            });
+        });
+    </script> 
+}
+
+<h2>@ViewBag.Title</h2>
+<br /><br />
+<table id="list-grid"></table>
+<div id="list-pager"></div>

@@ -1,0 +1,68 @@
+@{
+    ViewBag.Title = "Lista de Direcciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section AdditionalCss {
+    @Styles.Render("~/Content/Styles/ui.jqgrid.min.css")
+}
+
+@section AdditionalJavaScript {
+    @Scripts.Render("~/bundles/jqgrid")
+    @Scripts.Render("~/Scripts/jqgrid-listcrudredirect.js")
+
+    <script type="text/javascript">
+        var urlAndMethod = '/Direccions/Delete/';
+
+        $(function () {
+            $('#list-grid').jqGrid({
+                url: '/Direccions/GridData/',
+                datatype: 'json',
+                mtype: 'GET',
+                colNames: ['Direccion Id','Calle1','Calle2','Numero Casa','Canton','Provincia','Principal','Cliente Clienteid', '', ''],
+                colModel: [
+                    { name: 'DireccionId', index: 'DireccionId', align: 'right' },
+                    { name: 'Calle1', index: 'Calle1', align: 'left' },
+                    { name: 'Calle2', index: 'Calle2', align: 'left' },
+                    { name: 'NumeroCasa', index: 'NumeroCasa', align: 'left' },
+                    { name: 'Canton', index: 'Canton', align: 'left' },
+                    { name: 'Provincia', index: 'Provincia', align: 'left' },
+                    { name: 'Principal', index: 'Principal', align: 'center', formatter: 'checkbox' },
+                    { name: 'ClienteClienteid', index: 'ClienteClienteid', align: 'right' },
+                    { name: 'editoperation', index: 'editoperation', align: 'center', width: 40, sortable: false },
+                    { name: 'deleteoperation', index: 'deleteoperation', align: 'center', width: 40, sortable: false }
+                ],
+                pager: $('#list-pager'),
+                rowNum: 10,
+                rowList: [5, 10, 20, 50],
+                sortname: 'DireccionId',
+                sortorder: "asc",
+                viewrecords: true,
+                caption: 'List de Direcciones',
+                height: '100%',
+                width: '1200',
+                gridComplete: function () {
+                    var ids = jQuery("#list-grid").jqGrid('getDataIDs');
+                    for (var i = 0; i < ids.length; i++) {
+                        var currentid = ids[i];
+                        editLink = "<a href='/Direccions/Actualizar/" + currentid + "'><img src='/Content/Images/Edit.gif' style='border:none;' /></a>";
+                        deleteLink = "<a href='#' onclick=\"deleteItem('" + currentid + "')\"><img src='/Content/Images/Delete.png' style='border:none;' /></a>";
+                        jQuery("#list-grid").jqGrid('setRowData', ids[i], { editoperation: editLink });
+                        jQuery("#list-grid").jqGrid('setRowData', ids[i], { deleteoperation: deleteLink });
+                    }
+                }
+            });
+        });
+    </script> 
+}
+
+<h2>@ViewBag.Title</h2>
+<br /><br />
+<div id="errorConfirmationDialog"></div>
+<div id="errorDialog"></div>
+
+<a href="@Url.Action("Nuevo", "Direccions")"><img src="@Url.Content("~/Content/Images/Add.gif")" alt="Add New Direccions" style="border: none;" /></a>&nbsp;@Html.ActionLink("Ingresar Nuevo", "Nuevo", "Direccions")
+<br /><br />
+
+<table id="list-grid"></table>
+<div id="list-pager"></div>
